@@ -57,7 +57,7 @@ async function renderAll() {
 }
 
 function updateEditableState() {
-  const editableElements = document.querySelectorAll('input:not([type="date"]), textarea, select, .addMeal, #addTodo, #addGoal, #addTransaction');
+  const editableElements = document.querySelectorAll('input:not([type="date"]), textarea, select, .addMeal, #addTodo, #addGoal, #addTransaction, .habit-checkbox, .water-btn');
   editableElements.forEach(el => {
     el.disabled = !isEditMode;
   });
@@ -244,7 +244,7 @@ function renderHabits() {
     const habitItem = document.createElement('div');
     habitItem.className = 'form-check';
     habitItem.innerHTML = `
-      <input class="form-check-input" type="checkbox" id="habit${index}" ${data.habits?.[index] ? 'checked' : ''}>
+      <input class="form-check-input habit-checkbox" type="checkbox" id="habit${index}" ${data.habits?.[index] ? 'checked' : ''} ${isEditMode ? '' : 'disabled'}>
       <label class="form-check-label" for="habit${index}">${habit}</label>
     `;
     habitItem.querySelector('input').addEventListener('change', (e) => {
@@ -262,7 +262,7 @@ function renderWaterIntake() {
   waterIntake.innerHTML = '';
   for (let i = 0; i < 8; i++) {
     const waterButton = document.createElement('button');
-    waterButton.className = `btn btn-outline-primary ${data.waterIntake?.[i] ? 'active' : ''}`;
+    waterButton.className = `btn btn-outline-primary water-btn ${data.waterIntake?.[i] ? 'active' : ''} ${isEditMode ? '' : 'disabled'}`;
     waterButton.innerHTML = '<i class="fas fa-tint"></i>';
     waterButton.addEventListener('click', () => {
       if (isEditMode) {
